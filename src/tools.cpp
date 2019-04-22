@@ -37,22 +37,22 @@ VectorXd Tools::CalculateRMSE(const vector<VectorXd> &estimations,
 
 MatrixXd Tools::CalculateJacobian(const VectorXd& x_state) {
   MatrixXd Hj(3, 4);
-  float px = x_state(0);
-  float py = x_state(1);
-  float vx = x_state(2);
-  float vy = x_state(3);
+  double px = x_state(0);
+  double py = x_state(1);
+  double vx = x_state(2);
+  double vy = x_state(3);
 
   if (px == 0 && py == 0) {
       cout << "Error - division by zero" << endl;
       return Hj;
   }
   
-  float px2py2 = px * px + py * py;
-  float px2py2_sqrt = sqrt(px2py2);
-  float px_div_sqrt = px / px2py2_sqrt;
-  float py_div_sqrt = py / px2py2_sqrt;
-  float vxpy = vx * py;
-  float vypx = vy * px;
+  double px2py2 = px * px + py * py;
+  double px2py2_sqrt = sqrt(px2py2);
+  double px_div_sqrt = px / px2py2_sqrt;
+  double py_div_sqrt = py / px2py2_sqrt;
+  double vxpy = vx * py;
+  double vypx = vy * px;
   Hj << px_div_sqrt, py_div_sqrt, 0, 0,
         - py / px2py2, px / px2py2, 0, 0,
         py * (vxpy - vypx) / pow(px2py2, 1.5), px * (vypx - vxpy) / pow(px2py2, 1.5), px_div_sqrt, py_div_sqrt;
